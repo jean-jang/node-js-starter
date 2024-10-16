@@ -1,13 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import index from "./routes/index";
+import indexRouter from "./src/routes/index.js";
 
 const app = express();
 app.use(bodyParser.json());
-app.use("/api", index);
+app.use("/api", indexRouter);
 
-const PORT = 5000;
+const PORT = 5005;
 
 app.listen(PORT, () =>
   console.log(`server listenting on port http://localhost:${PORT}`)
@@ -16,8 +16,6 @@ app.listen(PORT, () =>
 const MONGO_URI = "mongodb://localhost:27017/node-js-to-do";
 
 mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-  })
+  .connect(MONGO_URI)
   .then(() => console.log("connected to database"))
   .catch((err) => console.error("Failed to connect to database", err));

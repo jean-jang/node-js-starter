@@ -1,6 +1,7 @@
 import express from "express";
-import router from express.Router();
-import taskApi from "./taskApi";  
+import taskApi from "./taskApi.js";
+
+const router = express.Router();
 
 router.use("/task", taskApi);
 
