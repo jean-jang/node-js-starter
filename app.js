@@ -3,19 +3,23 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import indexRouter from "./src/routes/index.js";
 import cors from "cors";
+import dotenv from "dotenv";
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/api", indexRouter);
 
-const PORT = 5005;
+dotenv.config();
 
-app.listen(PORT, () =>
-  console.log(`server listenting on port http://localhost:${PORT}`)
+const PORT = process.env.PORT;
+
+app.listen(PORT, "0.0.0.0", () =>
+  console.log(`Server listening on port ${PORT}`)
 );
 
-const MONGO_URI = "mongodb://localhost:27017/node-js-to-do";
+const MONGO_URI = process.env.MONGO_URI;
+console.log(MONGO_URI);
 
 mongoose
   .connect(MONGO_URI)
