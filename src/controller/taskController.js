@@ -13,7 +13,7 @@ export const createTask = async (req, res) => {
 
 export const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({}).select("-__v");
+    const tasks = await Task.find({});
     res.status(200).json({ status: "OK", tasks });
   } catch (error) {
     res.status(500).json({ status: "Error", message: error.message });
