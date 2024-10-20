@@ -1,26 +1,26 @@
 import Task from "../models/Task.js";
 
-export const createTask = async (req, res) => {
+export const createTask = async (req, res, next) => {
   try {
     const { task, isCompleted } = req.body;
     const newTask = new Task({ task, isCompleted });
     await newTask.save();
-    res.status(200).json({ status: "OK", newTask });
+    res.status(200).json({ status: "ok", newTask });
   } catch (error) {
-    res.status(400).json({ status: "Error", message: error.message });
+    next(error);
   }
 };
 
-export const getTasks = async (req, res) => {
+export const getTasks = async (req, res, next) => {
   try {
     const tasks = await Task.find({});
     res.status(200).json({ status: "OK", tasks });
   } catch (error) {
-    res.status(500).json({ status: "Error", message: error.message });
+    next(error);
   }
 };
 
-export const updateTask = async (req, res) => {
+export const updateTask = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { task, isCompleted } = req.body;
@@ -34,16 +34,16 @@ export const updateTask = async (req, res) => {
     }
     res.status(200).json({ status: "OK", updatedTask });
   } catch (error) {
-    res.status(500).json({ status: "Error", message: error.message });
+    next(error);
   }
 };
 
-export const deleteTask = async (req, res) => {
+export const deleteTask = async (req, res, next) => {
   try {
     const { id } = req.params;
     await Task.findByIdAndDelete(id);
     res.status(200).json({ status: "OK", message: "Task deleted" });
   } catch (error) {
-    res.status(500).json({ status: "Error", message: error.message });
+    next(error);
   }
 };

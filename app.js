@@ -25,3 +25,8 @@ mongoose
   .connect(MONGO_URI)
   .then(() => console.log("connected to database"))
   .catch((err) => console.error("Failed to connect to database", err));
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ status: "error", message: err.message });
+});
